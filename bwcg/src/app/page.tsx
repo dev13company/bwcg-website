@@ -1,33 +1,54 @@
-export default function Home() {
+'use client';
+import Link from "next/link";
+import Image from "next/image";
+
+export default function Header() {
   return (
-    <main className="bg-white text-gray-800">
-      <section className="relative h-screen bg-cover bg-center" style={{ backgroundImage: `url('/hero.jpg')` }}>
-        <div className="bg-black bg-opacity-50 h-full flex items-center justify-center">
-          <div className="text-center text-white p-4">
-            <h1 className="text-5xl font-bold mb-4">Berachah Ministries, Gachibowli</h1>
-            <p className="text-xl mb-6">A Place of Blessing & Worship</p>
-            <a href="#contact" className="bg-yellow-500 px-6 py-3 rounded-full text-lg font-semibold hover:bg-yellow-600 transition">Join Us</a>
-          </div>
-        </div>
-      </section>
+    <main className="flex flex-col items-center justify-center text-center">
+        <header className="fixed top-0 left-0 right-0 w-full bg-[#0B4268] text-white shadow-md z-50">
+            <div className="bg-primary mx-[100px] flex items-center md:flex-row justify-between py-3">
+                <Link href="/" className="md:text-3xl font-inter tracking-wide hover:text-yellow-400 transition text-center">
+                    Berachah Ministries Gachibowli
+                </Link>
+            </div>
+            <div>
+                {/* Navigation */}
+                <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <Link href="/" className="hover:text-yellow-400 transition">Home</Link>
+                <Link href="/about" className="hover:text-yellow-400 transition">About Us</Link>
+                <Link href="/services" className="hover:text-yellow-400 transition">Services</Link>
+                <Link href="/resources" className="hover:text-yellow-400 transition">Resources</Link>
+                <Link href="#contact" className="hover:text-yellow-400 transition">Contact</Link>
+                </nav>
 
-      <section className="py-16 px-4 text-center">
-        <h2 className="text-3xl font-bold mb-4">About Us</h2>
-        <p className="max-w-3xl mx-auto">Berachah Ministries is dedicated to spreading the Gospel and serving the community of Gachibowli and beyond. Our mission is to bring hope, healing, and transformation through Jesus Christ.</p>
-      </section>
-
-      <section className="py-16 bg-gray-100 text-center">
-        <h2 className="text-3xl font-bold mb-4">Service Timings</h2>
-        <p className="mb-2">Sunday Worship: 10:00 AM - 12:00 PM</p>
-        <p>Wednesday Prayer Meeting: 7:00 PM - 8:30 PM</p>
-      </section>
-
-      <section id="contact" className="py-16 px-4 text-center">
-        <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
-        <p className="mb-2">Address: Berachah Ministries, Gachibowli, Hyderabad</p>
-        <p className="mb-2">Phone: +91-XXXXXXXXXX</p>
-        <p>Email: info@berachahministries.org</p>
-      </section>
+                {/* Mobile Menu Icon */}
+                <div className="md:hidden">
+                <button className="text-white text-2xl focus:outline-none">&#9776;</button>
+                </div>
+            </div>
+            </header>
+            <section id="home" className="relative w-full mt-[160px] flex flex-col items-center justify-center text-center">
+            {/* Hero Banner */}
+            <div  className="relative w-full max-w-screen-xl aspect-[2/3]">
+                <div className="relative w-full  h-full">
+                <Image
+                src="/hero.jpg" // Replace with one of your uploaded images
+                alt="Berachah Ministries Gachibowli"
+                fill
+                className="object-cover"
+                priority
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                    మన్నా ఫుల్ గాస్పెల్ చర్చ్, వరంగల్
+                </h1>
+                <p className="text-lg md:text-2xl max-w-2xl">
+                    Sharing the love of Christ with Warangal and beyond.
+                </p>
+                </div>
+            </div>
+            </div>
+            </section>
     </main>
   );
 }

@@ -1,0 +1,186 @@
+'use client';
+import Image from "next/image";
+import Link from 'next/link';
+
+export default function Home() {
+  return (
+    <main className="px-[72px] bg-[#0B4268] text-white font-sans">
+      {/* Header Section */}
+      <header className="py-4 px-6 shadow-md shadow-lg z-50 bg-[#0B4268]">
+        <div className="max-w-4xl">
+          <div className="flex items-center space-x-4">
+            <Link href="/">
+              <h1 className="text-xl font-bold cursor-pointer">Berachah Ministries Gachibowli</h1>
+            </Link>
+          </div>
+          <nav className="space-x-6 text-sm">
+            <Link href="/">Home</Link>
+            <Link href="/about">About Us</Link>
+            <Link href="/services">Services</Link>
+            <Link href="/resources">Resources</Link>
+            <Link href="#contact">Contact</Link>
+          </nav>
+        </div>
+      </header>
+      {/* HERO SECTION
+      <div className="w-full relative bg-white text-[#0B4268] p-6 font-sans aspect-[3/2] border-t-8 border-l-8 border-r-8 border-[#0B4268] overflow-hidden">
+        <Image
+          src="/hero.jpg"
+          alt="Berachah Ministries Gachibowli"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-white text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+            Berachah Ministries, Gachibowli
+          </h1>
+          <p className="text-lg md:text-2xl mb-6 drop-shadow">
+            A Place of Blessing & Worship
+          </p>
+          <a
+            href="#contact"
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-full transition"
+          >
+            Join Us
+          </a>
+        </div>
+        </div> */}
+
+      {/* QUICK INFO STRIP
+      <section className="w-full bg-yellow-50 py-8 shadow-inner border-t border-yellow-200">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+          <div className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+            <h2 className="text-xl font-bold mb-2">Service Timings</h2>
+            <p>Sunday Worship: 10:00 AM</p>
+            <p>Wednesday Prayer: 7:00 PM</p>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+            <h2 className="text-xl font-bold mb-2">Upcoming Event</h2>
+            <p>Youth Revival Meeting – July 20</p>
+            <a href="/events" className="text-blue-600 underline">
+              View All Events
+            </a>
+          </div>
+          <div className="bg-white rounded-2xl p-6 shadow hover:shadow-lg transition">
+            <h2 className="text-xl font-bold mb-2">Give</h2>
+            <p>Support our ministry online.</p>
+            <a href="/give" className="text-blue-600 underline">
+              Donate Now
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT / MISSION 
+      <section className="max-w-5xl mx-auto px-6 py-16 text-center">
+        <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
+        <p className="text-lg leading-relaxed mb-4 text-gray-700">
+          మన చర్చ్ లక్ష్యం వరంగల్ లో క్రీస్తు ప్రేమను పంచడం, ప్రజలకు ఆధ్యాత్మిక ఆశలను అందించడం.
+        </p>
+        <p className="text-lg text-gray-700">
+          We are committed to building a community rooted in prayer, worship, and the Word of God.
+        </p>
+      </section>
+
+      {/* PASTORS SECTION
+      <section className="w-full bg-yellow-50 py-16">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-bold mb-8">Meet Our Pastors</h2>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            <Image
+              src="/pastor.jpg"
+              alt="Pastor"
+              width={220}
+              height={220}
+              className="rounded-full shadow-lg object-cover"
+            />
+            <p className="max-w-md text-gray-700 leading-relaxed">
+              Pastor [Name] has been leading Manna Full Gospel Church with faith,
+              vision, and dedication to spreading God’s Word in Warangal and beyond.
+            </p>
+          </div>
+        </div>
+      </section> */}
+
+      {/* LATEST SERMONS SECTION 
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <h2 className="text-4xl font-bold mb-8 text-center">Latest Sermons</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Example video cards 
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition">
+              <iframe
+                src="https://www.youtube.com/embed/your-video-id"
+                title={`Sermon ${i}`}
+                allowFullScreen
+                className="w-full h-56"
+              ></iframe>
+              <div className="p-4">
+                <h3 className="font-semibold mb-2 text-lg">
+                  Sunday Message #{i}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  A powerful word of encouragement and faith.
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ANNOUNCEMENTS 
+      <section className="w-full bg-yellow-50 py-16">
+        <div className="max-w-4xl mx-auto px-6">
+          <h2 className="text-4xl font-bold mb-6 text-center">Announcements</h2>
+          <ul className="text-left list-disc list-inside text-gray-700 leading-relaxed">
+            <li>Special Prayer Meeting this Friday at 7 PM</li>
+            <li>Sunday School registration open now</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* PRAYER REQUEST 
+      <section className="max-w-4xl mx-auto px-6 py-16 text-center">
+        <h2 className="text-4xl font-bold mb-4">Need Prayer?</h2>
+        <p className="text-gray-700 mb-6">
+          Submit your prayer requests — we are here to stand with you in faith.
+        </p>
+        <a
+          href="/prayer-request"
+          className="inline-block px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition"
+        >
+          Submit Prayer Request
+        </a>
+      </section> 
+
+      /* FOOTER 
+      <footer className="w-full bg-[#0B4268] text-white text-center py-10 mt-8">
+        <p className="text-lg font-semibold mb-2">
+          Berachah Ministries, Gachibowli
+        </p>
+        <p className="mb-2">Contact: +91-XXXXXXXXXX</p>
+        <p className="mb-4">
+          Follow us on{" "}
+          <a
+            href="https://youtube.com"
+            className="underline hover:text-yellow-400"
+          >
+            YouTube
+          </a>{" "}
+          &{" "}
+          <a
+            href="https://facebook.com"
+            className="underline hover:text-yellow-400"
+          >
+            Facebook
+          </a>
+        </p>
+        <p className="text-sm text-yellow-200">
+          © 2025 Berachah Ministries, Gachibowli. All Rights Reserved.
+        </p>
+      </footer> */}
+    </main>
+  );
+}
+
