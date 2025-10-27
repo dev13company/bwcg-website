@@ -27,7 +27,7 @@ export default function Header() {
                 </div>
             </div>
         </header>
-        <section id="home" className="relative w-full mt-[100px] flex flex-col items-center justify-center text-center">
+        <section id="home" className="hero-section w-full">
             {/* Hero Banner */}
             <div  className="relative w-full max-w-screen-xl h-[70vh] md:h-[80vh] lg:h-[100vh] aspect-[16/9] border-b-2 border-l-2 border-r-2 border-[#0B4268]">
                 <div className="relative w-full h-full">
