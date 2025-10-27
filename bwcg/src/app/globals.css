@@ -19,8 +19,10 @@
 html, body {
   scroll-behavior: smooth;
   font-family: 'Inter', sans-serif;
-  background-color: #ffffff;
-  color: #0B4268;
+  background-color: #000000;
+  color: #0b4268;
+  margin: 0;
+  padding: 0;
 }
 
 /* Optional: smooth transition effects */
@@ -28,7 +30,27 @@ a, button {
   transition: all 0.2s ease-in-out;
 }
 
-/* Section padding consistency */
+/* -------------------------------------
+   Header + Section Layout Fix
+-------------------------------------- */
+
+/* 1️⃣ Define your header height as a variable */
+:root {
+  --header-height: 5rem; /* matches Tailwind class h-20 (~80px) */
+}
+
+/* 2️⃣ All sections auto-offset scroll positions */
 section {
-  scroll-margin-top: 80px; /* avoids header overlap */
+  scroll-margin-top: var(--header-height);
+}
+
+/* 3️⃣ Utility class for hero sections */
+.hero-section {
+  margin-top: var(--header-height); /* pushes below fixed header */
+  min-height: calc(115vh - var(--header-height)); /* fills remaining viewport */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
