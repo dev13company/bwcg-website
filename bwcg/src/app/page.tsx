@@ -1,8 +1,78 @@
 'use client';
+
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useState } from 'react';
+import { createClient } from 'next-sanity';
+import imageUrlBuilder from '@sanity/image-url';
+
+
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? '',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? '',
+  apiVersion: '2023-07-11',
+  useCdn: true,
+});
+
+const builder = imageUrlBuilder(client);
+function urlFor(source: any) {
+  return builder.image(source);
+}
 
 export default function Header() {
+    const [hero, setHero] = useState(null);
+    const [gallery, setGallery] = useState([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+    // 1️⃣ Get start of current week (Monday)
+        const today = new Date();
+        const monday = new Date(today);
+        monday.setDate(today.getDate() - today.getDay() + 1);
+        const mondayISO = monday.toISOString().split("T")[0];
+
+        // 2️⃣ Try to fetch hero for this week
+        let heroData = await client.fetch(
+            `*[_type == "heroSection" && weekOf == $mondayISO][0]{
+            title, subtitle, buttonText, buttonLink, backgroundImage
+            }`,
+            { mondayISO }
+        );
+
+        // 3️⃣ If no hero found for this week → fallback to latest available hero
+        if (!heroData) {
+            heroData = await client.fetch(
+            `*[_type == "heroSection"] | order(weekOf desc)[0]{
+                title, subtitle, buttonText, buttonLink, backgroundImage
+            }`
+            );
+        }
+
+        // 4️⃣ Set the hero data (may be from fallback)
+        setHero(heroData);
+
+        // 5️⃣ Fetch gallery for current week with fallback
+        let galleryData = await client.fetch(
+            `*[_type == "galleryImage" && weekOf == $mondayISO]{
+            image, alt
+            }`,
+            { mondayISO }
+        );
+
+        if (!galleryData || galleryData.length === 0) {
+            galleryData = await client.fetch(
+            `*[_type == "galleryImage"] | order(weekOf desc)[0...6]{
+                image, alt
+            }`
+            );
+        }
+
+        setGallery(galleryData);
+        };
+
+        fetchData();
+    }, []);
+
   return (
     <main className="flex flex-col items-center justify-center text-center">
         <header className="fixed top-0 left-0 right-0 w-full bg-white text-white z-50">
@@ -32,53 +102,47 @@ export default function Header() {
             <div  className="relative w-full mx-auto h-[70vh] md:h-[80vh] lg:h-[106vh] aspect-[16/9] border-b-0 border-l-2 border-r-2 border-[#0B4268] mx-auto overflow-hidden  mb-[-1px]">
                 <div className="relative w-full h-full">
                     <Image
-                    src="/hero.jpg" // Replace with one of your uploaded images
+                    src={hero?.backgroundImage ? urlFor(hero.backgroundImage).url() : "/hero.jpg"} // Replace with one of your uploaded images
                     alt="Berachah Ministries Gachibowli"
                     fill
                     className="object-contain md:object-cover"
                     priority
                     />
-                    <div className="absolute inset-0 px-4 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white">
+                    <div className="absolute inset-0 px-4 bg-black/50 flex flex-col items-center justify-center text-white">
                         <h2 className="text-4xl md:text-6xl font-inter tracking-wider leading-tight text-white drop-shadow-2xl mb-4">
-                            Reaching the World with the Gospel of{' '}
+                            {hero?.title || "Reaching the World with the Gospel of "}
                             <span className="text-yellow-400">JESUS CHRIST</span>
                         </h2>
                         <p className="text-lg md:text-2xl max-w-3xl text-white leading-relaxed drop-shadow-lg">
-                            Bringing hope, healing, and transformation through Jesus Christ.
+                            {hero?.subtitle || "Bringing hope, healing, and transformation through Jesus Christ."}
                         </p>
                         <a
-                            href="#contact"
+                            href={hero?.buttonLink || "#contact"}
                             className="mt-6 inline-block bg-yellow-400 text-[#0B4268] px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-500 transition"
                         >
-                            Join Us
+                            {hero?.buttonText || "Join Us"}
                         </a>
-                        {/* <h1 className="text-2xl md:text-4xl font-inter mb-4">
-                            బెరాకా మినిస్ట్రీస్, గచ్చిబౌలి
-                        </h1>
-                        <p className="text-lg md:text-2xl max-w-2xl">
-                            ఆశీర్వాదం మరియు ఆరాధన స్థలం
-                        </p> */}
                     </div>
                 </div>
             </div>
         </section>
         <section id="gallery" className="relative w-full text-center m-0 p-0">
-            <div className="bg-primary mx-auto h-[70vh] md:h-[80vh] lg:h-[100vh] grid grid-cols-2 md:grid-cols-3 gap-2 border-t-0">
-                {[
-                { src: "/gallery1_1.jpg", alt: "Event 1" },
-                { src: "/gallery2_2.jpg", alt: "Event 2" },
-                { src: "/gallery3_3.jpg", alt: "Event 3" },
-                // { src: "/gallery4.jpg", alt: "Event 4" },
-                ].map((img) => (
-                <div key={img.src} className="relative w-full aspect-[3/3] overflow-hidden rounded">
-                    <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover"
-                    />
-                </div>
-                ))}
+            <div className="bg-primary mx-auto h-[70vh] md:h-[80vh] lg:h-[100vh] grid grid-cols-2 md:grid-cols-3 gap-2 border-t-2">
+                {gallery.length > 0
+                    ? gallery.map((img) => (
+                        <div key={img.image.asset._ref} className="relative w-full aspect-[3/3] overflow-hidden rounded">
+                        <Image src={urlFor(img.image).url()} alt={img.alt} fill className="object-cover" />
+                        </div>
+                    ))
+                    : [
+                        { src: "/gallery1_1.jpg", alt: "Event 1" },
+                        { src: "/gallery2_2.jpg", alt: "Event 2" },
+                        { src: "/gallery3_3.jpg", alt: "Event 3" },
+                    ].map((img) => (
+                        <div key={img.src} className="relative w-full aspect-[3/3] overflow-hidden rounded">
+                        <Image src={img.src} alt={img.alt} fill className="object-cover" />
+                        </div>
+                    ))}
             </div>
         </section>
     </main>
