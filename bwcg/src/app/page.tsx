@@ -54,17 +54,17 @@ export default function Header() {
         // 5️⃣ Fetch gallery for current week with fallback
         let galleryData = await client.fetch(
             `*[_type == "galleryImage" && weekOf == $mondayISO]{
-            image, alt
+            images[]{ alt, asset}
             }`,
             { mondayISO }
         );
 
-        if (!galleryData || galleryData.length === 0) {
+        if (!galleryData || !galleryData.images?.length) {
             galleryData = await client.fetch(
-            `*[_type == "galleryImage"] | order(weekOf desc)[0...6]{
-                image, alt
+            `*[_type == "galleryImage"] | order(weekOf desc)[0]{
+                images[]{ alt, asset }
             }`
-            );
+        );
         }
 
         setGallery(galleryData);
@@ -72,6 +72,14 @@ export default function Header() {
 
         fetchData();
     }, []);
+    // 3️⃣ Static fallback images
+  const fallbackImages = [
+    { src: "/gallery1_1.jpg", alt: "Event 1" },
+    { src: "/gallery2_2.jpg", alt: "Event 2" },
+    { src: "/gallery3_3.jpg", alt: "Event 3" },
+  ];
+
+  const imagesToShow = gallery?.images?.length ? gallery.images : fallbackImages;
 
   return (
     <main className="flex flex-col items-center justify-center text-center">
@@ -128,13 +136,24 @@ export default function Header() {
         </section>
         <section id="gallery" className="relative w-full text-center m-0 p-0">
             <div className="bg-primary mx-auto h-[70vh] md:h-[80vh] lg:h-[100vh] grid grid-cols-2 md:grid-cols-3 gap-2 border-t-2">
-                {gallery.length > 0
-                    ? gallery.map((img) => (
-                        <div key={img.image.asset._ref} className="relative w-full aspect-[3/3] overflow-hidden rounded">
-                        <Image src={urlFor(img.image).url()} alt={img.alt} fill className="object-cover" />
-                        </div>
-                    ))
-                    : [
+                {imagesToShow.map((img, index) => (
+                    <div key={index} className="relative w-full h-[60vh] md:h-[60vh]">
+                        <Image
+                            src={img.asset ? urlFor(img.asset).url() : img.src}
+                            alt={img.alt || `Gallery image ${index + 1}`}
+                            fill
+                            className="object-cover rounded"
+                            priority={index === 0}
+                        />
+                    </div>
+                ))}
+                {/* {gallery?.images?.length > 0 ? (
+                    gallery?.images?.map((img, index) => (
+                            <div key={img.image.asset._ref} className="relative w-full aspect-[3/3] overflow-hidden rounded">
+                                <Image src={img.asset.url} alt={img.alt || `Gallery image ${index + 1}`} fill className="object-cover" />
+                            </div>
+                        ))
+                    ): [
                         { src: "/gallery1_1.jpg", alt: "Event 1" },
                         { src: "/gallery2_2.jpg", alt: "Event 2" },
                         { src: "/gallery3_3.jpg", alt: "Event 3" },
@@ -142,7 +161,7 @@ export default function Header() {
                         <div key={img.src} className="relative w-full aspect-[3/3] overflow-hidden rounded">
                         <Image src={img.src} alt={img.alt} fill className="object-cover" />
                         </div>
-                    ))}
+                    ))} */}
             </div>
         </section>
     </main>
