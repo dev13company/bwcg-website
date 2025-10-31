@@ -107,7 +107,7 @@ export default function Header() {
         </header>
         <section id="home" className="hero-section w-full m-0 p-0 relative">
             {/* Hero Banner */}
-            <div  className="relative w-full mx-auto h-[70vh] md:h-[80vh] lg:h-[106vh] aspect-[16/9] border-b-0 border-l-2 border-r-2 border-[#0B4268] mx-auto overflow-hidden  mb-[-1px]">
+            <div  className="relative w-full mx-auto h-[70vh] md:h-[80vh] lg:h-[140vh] aspect-[16/9] border-b-0 border-l-2 border-r-2 border-[#0B4268] mx-auto overflow-hidden  mb-[-1px]">
                 <div className="relative w-full h-full">
                     <Image
                     src={hero?.backgroundImage ? urlFor(hero.backgroundImage).url() : "/hero.jpg"} // Replace with one of your uploaded images
