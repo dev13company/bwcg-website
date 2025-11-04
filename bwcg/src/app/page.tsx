@@ -22,6 +22,8 @@ function urlFor(source: any) {
 export default function Header() {
     const [hero, setHero] = useState(null);
     const [gallery, setGallery] = useState([]);
+    const [meetings, setMeetings] = useState([]);
+
     
     useEffect(() => {
         const fetchData = async () => {
@@ -48,9 +50,6 @@ export default function Header() {
             );
         }
 
-        // 4️⃣ Set the hero data (may be from fallback)
-        setHero(heroData);
-
         // 5️⃣ Fetch gallery for current week with fallback
         let galleryData = await client.fetch(
             `*[_type == "galleryImage" && weekOf == $mondayISO]{
@@ -67,7 +66,22 @@ export default function Header() {
         );
         }
 
+        // 3️⃣ Fetch upcoming meetings
+        const meetingsData = await client.fetch(
+        `*[_type == "meeting" && date >= now()] | order(date asc)[0...4]{
+            _id,
+            title,
+            date,
+            description,
+            image,
+            link
+        }`
+        );
+
+        // 4️⃣ Set the hero data (may be from fallback)
+        setHero(heroData);
         setGallery(galleryData);
+        setMeetings(meetingsData);
         };
 
         fetchData();
@@ -162,6 +176,67 @@ export default function Header() {
                         <Image src={img.src} alt={img.alt} fill className="object-cover" />
                         </div>
                     ))} */}
+            </div>
+        </section>
+        {/* UPCOMING MEETINGS SECTION */}
+        <section id="meetings" className="relative w-full text-center bg-white py-12">
+            <div className="max-w-6xl mx-auto px-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-[#0B4268] mb-8">
+                Upcoming Meetings
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {meetings && meetings.length > 0 ? (
+                    meetings.map((mtg) => (
+                    <div
+                        key={mtg._id}
+                        className="bg-yellow-50 rounded-2xl shadow-lg overflow-hidden flex flex-col"
+                    >
+                        <div className="relative w-full h-48">
+                        {mtg.image ? (
+                            <Image
+                            src={urlFor(mtg.image).url()}
+                            alt={mtg.title}
+                            fill
+                            className="object-cover"
+                            />
+                        ) : (
+                            <div className="bg-gray-300 w-full h-full" />
+                        )}
+                        </div>
+                        <div className="p-4 flex-1 flex flex-col justify-between text-left">
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-[#0B4268]">
+                            {mtg.title}
+                            </h3>
+                            <p className="text-sm text-gray-700 mb-3">
+                            {new Date(mtg.date).toLocaleDateString("en-IN", {
+                                weekday: "long",
+                                month: "short",
+                                day: "numeric",
+                            })}
+                            </p>
+                            <p className="text-gray-600 text-sm mb-4">
+                            {mtg.description || "Join us for a special gathering this week!"}
+                            </p>
+                        </div>
+                        {mtg.link && (
+                            <a
+                            href={mtg.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-auto inline-block bg-yellow-400 text-[#0B4268] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-500 transition"
+                            >
+                            Learn More
+                            </a>
+                        )}
+                        </div>
+                    </div>
+                    ))
+                ) : (
+                    <p className="text-gray-600">No upcoming meetings scheduled.</p>
+                )}
+                </div>
             </div>
         </section>
     </main>
