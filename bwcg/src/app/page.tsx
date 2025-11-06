@@ -23,6 +23,7 @@ export default function Header() {
     const [hero, setHero] = useState(null);
     const [gallery, setGallery] = useState([]);
     const [meetings, setMeetings] = useState([]);
+    const [about, setAbout] = useState(null);
 
     
     useEffect(() => {
@@ -78,10 +79,25 @@ export default function Header() {
         }`
         );
 
+        const aboutData = await client.fetch(
+            `*[_type == "aboutPage"][0]{
+                title,
+                intro,
+                founders[]{
+                name,
+                role,
+                bio,
+                photo
+                }
+            }`
+        );
+    
+
         // 4️⃣ Set the hero data (may be from fallback)
         setHero(heroData);
         setGallery(galleryData);
         setMeetings(meetingsData);
+        setAbout(aboutData);
         };
 
         fetchData();
@@ -149,9 +165,9 @@ export default function Header() {
             </div>
         </section>
         <section id="gallery" className="relative w-full text-center m-0 p-0">
-            <div className="bg-primary mx-auto h-[70vh] md:h-[80vh] lg:h-[100vh] grid grid-cols-2 md:grid-cols-3 gap-2 border-t-2">
+            <div className="bg-primary mx-auto grid grid-cols-2 md:grid-cols-3 gap-[1px] border-t-0 border-b-0">
                 {imagesToShow.map((img, index) => (
-                    <div key={index} className="relative w-full h-[60vh] md:h-[60vh]">
+                    <div key={index} className="relative w-full aspect-[3/3] overflow-hidden">
                         <Image
                             src={img.asset ? urlFor(img.asset).url() : img.src}
                             alt={img.alt || `Gallery image ${index + 1}`}
@@ -179,7 +195,7 @@ export default function Header() {
             </div>
         </section>
         {/* UPCOMING MEETINGS SECTION */}
-        <section id="meetings" className="relative w-full text-center bg-white py-12">
+        <section id="meetings" className="relative w-full text-center bg-white py-12 mt-[-1px]">
             <div className="max-w-6xl mx-auto px-4">
                 <h2 className="text-3xl md:text-4xl font-bold text-[#0B4268] mb-8">
                 Upcoming Meetings
@@ -236,6 +252,109 @@ export default function Header() {
                 ) : (
                     <p className="text-gray-600">No upcoming meetings scheduled.</p>
                 )}
+                </div>
+            </div>
+        </section>
+        {/* ABOUT US SECTION */}
+        <section id="about" className="relative w-full bg-yellow-50 py-16 px-6 text-center">
+            <div className="max-w-5xl mx-auto">
+                <h2 className="text-4xl md:text-5xl font-bold text-[#0B4268] mb-8">
+                    {about?.title || "About Us"}
+                </h2>
+
+                {about?.intro && (
+                    <p className="text-[#0B4268] text-lg leading-relaxed mb-10">
+                        {about.intro}
+                    </p>
+                )}
+
+                <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+                    {about?.founders?.length > 0 ? (
+                        about?.founders?.map((person: any, index: number) => {
+                            const personName = person?.name?.trim() || "Pastor";
+                            const role = person?.role || "Church Leader";
+                            const bio =
+                                person?.bio ||
+                                "We are committed to serving the Lord and spreading the Gospel through love and faith.";
+
+                            // ✅ fallback image logic
+                            const imageSrc = person?.photo
+                                ? urlFor(person.photo).url()
+                                : "/sister_shekena.jpg"
+
+                            return (
+                                <div key={index} className="text-center">
+                                    <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-lg border-4 border-[#0B4268] mx-auto mb-4">
+                                        <Image
+                                        src={imageSrc}
+                                        alt={personName}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                        />
+                                    </div>
+                                    <h3 className="text-2xl font-semibold text-[#0B4268]">
+                                        {personName}
+                                    </h3>
+                                    <p className="text-sm text-gray-700 italic mb-2">{role}</p>
+                                    <p className="text-[#0B4268] text-base leading-relaxed max-w-md mx-auto">
+                                        {bio}
+                                    </p>
+                                </div>
+                            );
+                        })
+                    ) : (
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-10">
+                                <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-lg border-4 border-[#0B4268]">
+                                    <Image
+                                    src="/pastor_caleb.jpg" // replace with actual image
+                                    alt="Pastor Caleb"
+                                    fill
+                                    className="object-cover"
+                                    />
+                                </div>
+                                <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-lg border-4 border-[#0B4268]">
+                                    <Image
+                                    src="/sister_shekena.jpg" // replace with actual image
+                                    alt="Sister Shekena Sharon Glory"
+                                    fill
+                                    className="object-cover"
+                                    />
+                                </div>
+                            </div>
+                        )
+                    }
+                </div>
+                <div className="mt-10 text-[#0B4268] leading-relaxed text-lg text-left md:text-center">
+                    <p className="mb-4">
+                        <strong>Pastor Caleb</strong> and <strong>Sister Shekena Sharon Glory</strong> are the
+                        visionary leaders of <span className="font-semibold">Berachah Ministries, Gachibowli</span> —
+                        a vibrant, Spirit-filled church dedicated to proclaiming the Gospel of Jesus Christ and
+                        transforming lives through prayer, worship, and the Word of God.
+                    </p>
+                    <p className="text-lg mt-6 text-[#0B4268] leading-relaxed">
+                        <strong>పాస్టర్ కలేబ్ గారు</strong> మరియు <strong>సిస్టర్ శేఖినా శారన్ గ్లోరీ గారు</strong> 
+                        దేవుని పిలుపుతో గచ్చిబౌలిలో స్థాపించబడిన <strong>బెరాకా మినిస్ట్రీలు</strong> ద్వారా 
+                        ప్రభువుకు మహిమ కలిగించుచున్నారు. ప్రార్థన, ఆరాధన మరియు వాక్యముతో 
+                        ప్రజల జీవితములను మారుస్తూ దేవుని ప్రేమను పంచుతున్నారు.
+                    </p>
+
+                    <p className="mb-4">
+                        With a deep passion for souls and a heart of compassion, Pastor Caleb ministers the Word with
+                        divine revelation and grace, leading believers to experience the power of God’s presence and
+                        the fullness of His promises.
+                    </p>
+
+                    <p className="mb-4">
+                        Sister Shekena Sharon Glory stands beside him as a powerful intercessor and worship leader,
+                        carrying a prophetic anointing that brings healing and restoration to many. Together, they
+                        have been instrumental in nurturing faith, strengthening families, and raising a generation
+                        of believers who walk in truth and love.
+                    </p>
+
+                <p className="italic text-gray-700 mt-6">
+                    “Our mission is to reach the unreached and share the love of Jesus Christ with every heart.”
+                </p>
                 </div>
             </div>
         </section>
