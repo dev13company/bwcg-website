@@ -24,6 +24,7 @@ export default function Header() {
     const [gallery, setGallery] = useState([]);
     const [meetings, setMeetings] = useState([]);
     const [about, setAbout] = useState(null);
+    const [testimonials, setTestimonials] = useState([]);
 
     
     useEffect(() => {
@@ -91,13 +92,23 @@ export default function Header() {
                 }
             }`
         );
-    
+
+        const testimonialData = await client.fetch(
+            `*[_type == "testimonial"] | order(date desc)[0...6]{
+                _id,
+                name,
+                role,
+                message,
+                photo
+            }`
+        );
 
         // 4️⃣ Set the hero data (may be from fallback)
         setHero(heroData);
         setGallery(galleryData);
         setMeetings(meetingsData);
         setAbout(aboutData);
+        setTestimonials(testimonialData);
         };
 
         fetchData();
@@ -256,7 +267,7 @@ export default function Header() {
             </div>
         </section>
         {/* ABOUT US SECTION */}
-        <section id="about" className="relative w-full bg-yellow-50 py-16 px-6 text-center">
+        <section id="about" className="relative w-full bg-yellow-50 pb-0 pt-16 px-6 text-center">
             <div className="max-w-5xl mx-auto">
                 <h2 className="text-4xl md:text-5xl font-bold text-[#0B4268] mb-8">
                     {about?.title || "About Us"}
@@ -356,6 +367,47 @@ export default function Header() {
                     “Our mission is to reach the unreached and share the love of Jesus Christ with every heart.”
                 </p>
                 </div>
+            </div>
+        </section>
+        {/* WHAT PEOPLE SAY SECTION */}
+        <section id="testimonials" className="bg-[#0B4268] text-white pt-0 pb-16 px-6 -mt-[1px]">
+            <div className="mx-auto text-center">
+                <h2 className="text-4xl md:text-5xl font-bold mb-10 text-yellow-400">
+                What People Say
+                </h2>
+
+                {testimonials.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {testimonials.map((t) => (
+                    <div
+                        key={t._id}
+                        className="bg-white text-[#0B4268] rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform hover:scale-[1.03]"
+                    >
+                        <div className="relative w-32 h-64 rounded-full overflow-hidden mb-4">
+                        <Image
+                            src={
+                            t.photo
+                                ? urlFor(t.photo).url()
+                                : "/default_user.jpg" // fallback image
+                            }
+                            alt={t.name || "Church Member"}
+                            fill
+                            className="object-cover"
+                        />
+                        </div>
+                        <h3 className="text-xl font-semibold mb-1">{t.name || "Member"}</h3>
+                        <p className="text-sm text-gray-500 mb-3">{t.role || "Believer"}</p>
+                        <p className="text-gray-700 text-base leading-relaxed italic">
+                        “{t.message}”
+                        </p>
+                    </div>
+                    ))}
+                </div>
+                ) : (
+                <p className="text-gray-200 italic">
+                    Testimonials will be updated soon. Praise be to God!
+                </p>
+                )}
             </div>
         </section>
     </main>
