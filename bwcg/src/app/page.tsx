@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from 'react';
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
+import { FaFacebook, FaInstagram, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 
 const client = createClient({
@@ -411,134 +412,127 @@ export default function Header() {
             </div>
         </section>
         {/* CONTACT US SECTION */}
-        <section id="contact" className="relative w-full bg-white py-16 px-6 text-[#0B4268]">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                {/* LEFT: Contact Info */}
-                <div className="space-y-6 text-left">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#0B4268]">
-                        Contact Us
-                    </h2>
-                <p className="text-lg leading-relaxed mb-6">
-                    We’d love to hear from you! Whether you need prayer, have questions about
-                    our ministry, or want to connect with us — feel free to reach out anytime.
-                </p>
+<section
+  id="contact"
+  className="relative w-full bg-white py-16 px-6 text-[#0B4268]"
+>
+  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+    {/* 1️⃣ Contact Info */}
+    <div className="space-y-6 text-left">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#0B4268]">
+        Contact Us
+      </h2>
+      <p className="text-base leading-relaxed mb-4">
+        Reach out for prayer, ministry inquiries, or fellowship — we’d love to connect!
+      </p>
+      <div className="space-y-3">
+        <p className="flex items-start space-x-3">
+          <span className="text-yellow-500 text-xl mt-1">📍</span>
+          <span>
+            <strong>Berachah Ministries</strong><br />
+            Gachibowli, Hyderabad, Telangana
+          </span>
+        </p>
+        <p className="flex items-center space-x-3">
+          <span className="text-yellow-500 text-xl">📞</span>
+          <a href="tel:+919876543210" className="hover:text-yellow-600">
+            +91 98765 43210
+          </a>
+        </p>
+        <p className="flex items-center space-x-3">
+          <span className="text-yellow-500 text-xl">✉️</span>
+          <a
+            href="mailto:info@berachahministries.in"
+            className="hover:text-yellow-600"
+          >
+            info@berachahministries.in
+          </a>
+        </p>
+      </div>
+      {/* Social Icons */}
+      <div className="flex space-x-5 mt-6">
+        <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">🌐</a>
+        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">📸</a>
+        <a href="https://www.youtube.com/@ShekenaGlory" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">▶️</a>
+      </div>
+    </div>
 
-                <div className="space-y-4 text-base">
-                    <p className="flex items-center space-x-3">
-                    <span className="text-yellow-500 text-2xl">📍</span>
-                    <span>
-                        <strong>Berachah Ministries</strong><br />
-                        Gachibowli, Hyderabad, Telangana, India
-                    </span>
-                    </p>
-                    <p className="flex items-center space-x-3">
-                    <span className="text-yellow-500 text-2xl">📞</span>
-                    <a href="tel:+919876543210" className="hover:text-yellow-600">
-                        +91 98765 43210
-                    </a>
-                    </p>
-                    <p className="flex items-center space-x-3">
-                    <span className="text-yellow-500 text-2xl">✉️</span>
-                    <a
-                        href="mailto:info@berachahministries.in"
-                        className="hover:text-yellow-600"
-                    >
-                        info@berachahministries.in
-                    </a>
-                    </p>
-                </div>
+    {/* 2️⃣ Message Form */}
+    <div className="bg-yellow-50 rounded-2xl shadow-md p-6">
+      <h3 className="text-2xl font-semibold mb-4">Send Us a Message</h3>
+      <form
+        action="https://formspree.io/f/your_form_id"
+        method="POST"
+        className="space-y-3"
+      >
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+          className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+          className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
+        />
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          rows={4}
+          required
+          className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
+        ></textarea>
+        <button
+          type="submit"
+          className="bg-[#0B4268] text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-yellow-500 hover:text-[#0B4268] transition w-full"
+        >
+          Send Message
+        </button>
+      </form>
+    </div>
 
-                {/* Social Icons */}
-                <div className="flex space-x-6 mt-8">
-                    <a
-                    href="https://www.facebook.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0B4268] hover:text-yellow-500 text-2xl"
-                    >
-                    <i className="fab fa-facebook"></i>
-                    </a>
-                    <a
-                    href="https://www.instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0B4268] hover:text-yellow-500 text-2xl"
-                    >
-                    <i className="fab fa-instagram"></i>
-                    </a>
-                    <a
-                    href="https://www.youtube.com/@ShekenaGlory"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#0B4268] hover:text-yellow-500 text-2xl"
-                    >
-                    <i className="fab fa-youtube"></i>
-                    </a>
-                </div>
-                </div>
+    {/* 3️⃣ Google Map */}
+    <div className="h-[350px] rounded-2xl overflow-hidden shadow-md">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5132422948924!2d78.34859707494164!3d17.445715083460792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc3916dd7f%3A0x5ad523db4d1c8712!2sGachibowli%2C%20Hyderabad%2C%20Telangana%20500032!5e0!3m2!1sen!2sin!4v1709392456723!5m2!1sen!2sin"
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
 
-                {/* RIGHT: Contact Form */}
-                <div className="bg-yellow-50 rounded-2xl shadow-lg p-8">
-                <h3 className="text-2xl font-semibold mb-6 text-[#0B4268]">
-                    Send Us a Message
-                </h3>
-                <form
-                    action="https://formspree.io/f/your_form_id"
-                    method="POST"
-                    className="space-y-4"
-                >
-                    <div>
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        required
-                        className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-500"
-                    />
-                    </div>
-                    <div>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Your Email"
-                        required
-                        className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-500"
-                    />
-                    </div>
-                    <div>
-                    <textarea
-                        name="message"
-                        placeholder="Your Message"
-                        rows={4}
-                        required
-                        className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:border-yellow-500"
-                    ></textarea>
-                    </div>
-                    <button
-                    type="submit"
-                    className="bg-[#0B4268] text-white font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:text-[#0B4268] transition w-full"
-                    >
-                    Send Message
-                    </button>
-                </form>
-                </div>
-            </div>
-
-            {/* MAP SECTION BELOW */}
-            <div className="mt-16 w-full h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-lg border-t-2 border-[#0B4268]">
-                <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5132422948924!2d78.34859707494164!3d17.445715083460792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc3916dd7f%3A0x5ad523db4d1c8712!2sGachibowli%2C%20Hyderabad%2C%20Telangana%20500032!5e0!3m2!1sen!2sin!4v1709392456723!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-            </div>
-
-            {/* Decorative Transition to Footer */}
-            <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b from-white to-[#0B4268]" />
+    {/* 4️⃣ Donation QR */}
+    <div className="bg-yellow-50 rounded-2xl shadow-md p-6 text-center flex flex-col items-center justify-center">
+      <h3 className="text-2xl font-semibold mb-3">Support Our Ministry</h3>
+      <p className="text-base text-gray-700 mb-4">
+        Your contribution helps us spread the Gospel and support our outreach programs.
+      </p>
+      <div className="relative w-40 h-40 mb-3">
+        <Image
+          src="/donation_qr.jpg"
+          alt="Donation QR Code"
+          fill
+          className="object-contain border-4 border-[#0B4268] rounded-xl shadow"
+        />
+      </div>
+      <p className="text-sm text-gray-600 mb-3">
+        UPI ID: <strong>berachah@upi</strong>
+      </p>
+      <a
+        href="upi://pay?pa=berachah@upi&pn=Berachah%20Ministries"
+        className="bg-yellow-400 text-[#0B4268] font-semibold px-5 py-2 rounded-lg hover:bg-yellow-500 transition"
+      >
+        Donate via UPI
+      </a>
+    </div>
+  </div>
         </section>
     </main>
   );
