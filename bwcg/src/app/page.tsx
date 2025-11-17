@@ -537,7 +537,7 @@ export default function Header() {
       </p>
       <div className="relative w-40 h-40 mb-3">
         <Image
-          src="/donation_qr.jpg"
+          src="/donation_qr.JPG"
           alt="Donation QR Code"
           fill
           className="object-contain border-4 border-[#0B4268] rounded-xl shadow"
