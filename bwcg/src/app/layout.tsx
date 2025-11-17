@@ -1,4 +1,5 @@
 import { Playfair_Display, Inter } from "next/font/google";
+import type { ReactNode } from "react";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -17,7 +18,11 @@ export const metadata = {
   description: "A Place of Blessing & Worship",
 };
 
-export default function RootLayout({children}) {
+interface RootLayoutProps {
+  children: ReactNode;
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
       <body className="font-sans bg-white text-[#0B4268]">{children}</body>
