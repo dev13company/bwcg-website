@@ -29,12 +29,21 @@ type GalleryImage = {
 type GalleryData = {
         images?: GalleryImage[];
     } | null;
+
+type HeroData = {
+    title?: string;
+    subtitle?: string;
+    buttonText?: string;
+    buttonLink?: string;
+    backgroundImage?: any;
+    } | null;
+
 export default function Header() {
-    const [hero, setHero] = useState(null);
+    const [hero, setHero] = useState<HeroData>(null);
     const [gallery, setGallery] = useState<GalleryData>(null);
-    const [meetings, setMeetings] = useState([]);
-    const [about, setAbout] = useState(null);
-    const [testimonials, setTestimonials] = useState([]);
+    const [meetings, setMeetings] = useState<any[]>([]);
+    const [about, setAbout] = useState<any>(null);
+    const [testimonials, setTestimonials] = useState<any[]>([]);
     const [imagesToShow, setImagesToShow] = useState<any[]>([]);
     
     useEffect(() => {
