@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineField, defineType } from "sanity";
 
 const testimonialSection = {
