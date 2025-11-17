@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from 'next-sanity';
 import imageUrlBuilder from '@sanity/image-url';
 import { FaFacebook, FaInstagram, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import galleryImage from "@/sanity/schemaTypes/galleryImage";
 
 
 const client = createClient({
@@ -20,13 +21,21 @@ function urlFor(source: any) {
   return builder.image(source);
 }
 
+type GalleryImage = {
+            asset?: any;
+            alt?: string;
+        };
+
+type GalleryData = {
+        images?: GalleryImage[];
+    } | null;
 export default function Header() {
     const [hero, setHero] = useState(null);
-    const [gallery, setGallery] = useState([]);
+    const [gallery, setGallery] = useState<GalleryData>(null);
     const [meetings, setMeetings] = useState([]);
     const [about, setAbout] = useState(null);
     const [testimonials, setTestimonials] = useState([]);
-
+    const [imagesToShow, setImagesToShow] = useState<any[]>([]);
     
     useEffect(() => {
         const fetchData = async () => {
@@ -54,20 +63,24 @@ export default function Header() {
         }
 
         // 5️⃣ Fetch gallery for current week with fallback
-        let galleryData = await client.fetch(
+        const galleryData: GalleryData =  await client.fetch(
             `*[_type == "galleryImage" && weekOf == $mondayISO]{
             images[]{ alt, asset}
             }`,
             { mondayISO }
         );
 
-        if (!galleryData || !galleryData.images?.length) {
-            galleryData = await client.fetch(
-            `*[_type == "galleryImage"] | order(weekOf desc)[0]{
-                images[]{ alt, asset }
-            }`
-        );
-        }
+        const fallbackImages = [
+            { src: "/gallery1_1.jpg", alt: "Event 1" },
+            { src: "/gallery2_2.jpg", alt: "Event 2" },
+            { src: "/gallery3_3.jpg", alt: "Event 3" },
+        ];
+
+        const imagesToShow =
+            galleryData && Array.isArray(galleryData.images) && galleryData.images.length > 0
+                ? galleryData.images
+                : fallbackImages;
+
 
         // 3️⃣ Fetch upcoming meetings
         const meetingsData = await client.fetch(
@@ -110,18 +123,17 @@ export default function Header() {
         setMeetings(meetingsData);
         setAbout(aboutData);
         setTestimonials(testimonialData);
+        if (galleryData && Array.isArray(galleryData.images) && galleryData.images.length > 0) {
+            setImagesToShow(galleryData.images);
+        } else {
+            setImagesToShow(fallbackImages);
+        }
+
         };
 
         fetchData();
     }, []);
-    // 3️⃣ Static fallback images
-  const fallbackImages = [
-    { src: "/gallery1_1.jpg", alt: "Event 1" },
-    { src: "/gallery2_2.jpg", alt: "Event 2" },
-    { src: "/gallery3_3.jpg", alt: "Event 3" },
-  ];
 
-  const imagesToShow = gallery?.images?.length ? gallery.images : fallbackImages;
 
   return (
     <main className="flex flex-col items-center justify-center text-center">
