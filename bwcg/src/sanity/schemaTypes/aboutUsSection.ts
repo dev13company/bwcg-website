@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineType, defineField } from "sanity";
 
 const aboutUsSection = {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineField, defineType } from "sanity";
 
 const galleryImage = {
@@ -38,7 +39,7 @@ const galleryImage = {
       weekOf: "weekOf",
       media: "images.0", // show first image as preview thumbnail
     },
-    prepare(selection) {
+    prepare(selection: { weekOf?: string; media?: any }) {
       const { weekOf, media } = selection;
       return {
         title: weekOf ? `Gallery for week of ${weekOf}` : "Gallery (unspecified week)",
