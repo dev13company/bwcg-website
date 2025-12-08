@@ -13,17 +13,17 @@
     "@sanity/image-url": "^1.2.0",
     "@sanity/vision": "^4.11.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "next": "16.0.0",
+    "next": "16.0.7",
     "next-sanity": "^11.5.6",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "react-icons": "^5.5.0",
     "react-responsive-carousel": "^3.2.23",
     "sanity": "^4.11.0",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "18.19.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.21",
@@ -32,5 +32,8 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.3",
     "typescript": "^5"
+  },
+  "resolutions": {
+    "@sanity/client": "6.x"
   }
 }
