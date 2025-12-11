@@ -148,9 +148,11 @@ export default function Header() {
                 {/* Navigation */}
                 <nav className="hidden md:flex items-center space-x-8 text-sm font-medium">
                     <Link href="/" className="hover:text-yellow-400 font-inter transition">Home</Link>
-                    <Link href="#about" className="hover:text-yellow-400 font-inter transition">About Us</Link>
-                    <Link href="#services" className="hover:text-yellow-400 font-inter transition">Services</Link>
-                    <Link href="#resources" className="hover:text-yellow-400 font-inter transition">Gallery</Link>
+                    <Link href="#about" className="hover:text-yellow-400 font-inter transition">About</Link>
+                    <Link href="#meetings" className="hover:text-yellow-400 font-inter transition">Meetings</Link>
+                    <Link href="#photos" className="hover:text-yellow-400 font-inter transition">Gallery</Link>
+                    <Link href="#videos" className="hover:text-yellow-400 font-inter transition">Videos</Link>
+                    <Link href="#donate" className="hover:text-yellow-400 font-inter transition">Donate</Link>
                     <Link href="#contact" className="hover:text-yellow-400 font-inter transition">Contact</Link>
                 </nav>
 
