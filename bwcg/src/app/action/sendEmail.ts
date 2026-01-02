@@ -15,7 +15,7 @@ export async function sendEmail(formData: FormData) {
 
   await resend.emails.send({
     from: "Berachah Church <onboarding@resend.dev>",
-    to: "gospelministry85@gmail.com",
+    to: "calebberachah123@gmail.com",
     subject: "Acknowledged Your Request",
     text: `
 Name: ${name}
