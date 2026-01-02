@@ -7,6 +7,7 @@ import {client} from '../sanity/lib/client'
 import imageUrlBuilder from '@sanity/image-url';
 import { FaFacebook, FaInstagram, FaYoutube, FaPhone, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 import galleryImage from "@/sanity/schemaTypes/galleryImage";
+import {sendEmail}  from "@/app/action/sendEmail";
 
 const builder = imageUrlBuilder(client);
 function urlFor(source: any) {
@@ -37,7 +38,18 @@ export default function Header() {
     const [about, setAbout] = useState<any>(null);
     const [testimonials, setTestimonials] = useState<any[]>([]);
     const [imagesToShow, setImagesToShow] = useState<any[]>([]);
-    
+    const [showPopup, setShowPopup] = useState(false);
+
+    async function handleSubmit(formData: FormData) {
+        const res = await sendEmail(formData);
+        if (res?.success) {
+            setShowPopup(true);
+
+            // Hide popup after 4 seconds
+            setTimeout(() => setShowPopup(false), 4000);
+        }
+    }
+
     useEffect(() => {
         const fetchData = async () => {
     // 1️⃣ Get start of current week (Monday)
@@ -475,39 +487,72 @@ export default function Header() {
     {/* 2️⃣ Message Form */}
     <div className="bg-yellow-50 rounded-2xl shadow-md p-6">
       <h3 className="text-2xl font-semibold mb-4">Send Us a Message</h3>
-      <form
-        action="https://formspree.io/f/your_form_id"
-        method="POST"
-        className="space-y-3"
-      >
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          required
-          className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          required
-          className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
-        />
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows={4}
-          required
-          className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
-        ></textarea>
-        <button
-          type="submit"
-          className="bg-[#0B4268] text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-yellow-500 hover:text-[#0B4268] transition w-full"
-        >
-          Send Message
-        </button>
-      </form>
+        <form action={handleSubmit} className="space-y-3">
+            <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+                className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
+            />
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Your Email (optional)"
+                className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
+            />
+
+            {/* 📱 Country Code + Mobile Number */}
+            <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+                <select
+                name="countryCode"
+                defaultValue="+91"
+                className="bg-gray-100 px-3 py-2 border-r border-gray-300 text-gray-700 outline-none"
+                >
+                <option value="+91">🇮🇳 +91</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+61">🇦🇺 +61</option>
+                <option value="+971">🇦🇪 +971</option>
+                <option value="+81">🇯🇵 +81</option>
+                <option value="+65">🇸🇬 +65</option>
+                <option value="+27">🇿🇦 +27</option>
+                <option value="+49">🇩🇪 +49</option>
+                </select>
+
+                <input
+                    type="tel"
+                    name="mobile"
+                    placeholder="Mobile Number"
+                    required
+                    pattern="[0-9]{7,12}"
+                    className="w-full p-2.5 focus:outline-none focus:border-yellow-500"
+                />
+            </div>
+
+            <textarea
+                name="message"
+                placeholder="Your Message"
+                rows={4}
+                required
+                className="w-full border border-gray-300 rounded-lg p-2.5 focus:outline-none focus:border-yellow-500"
+            />
+
+            <button
+                type="submit"
+                className="bg-[#0B4268] text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-yellow-500 hover:text-[#0B4268] transition w-full"
+            >
+                Send Message
+            </button>
+
+            {/* Success Message */}
+            {showPopup && (
+                <div className="p-3 bg-green-100 border border-green-400 text-green-800 rounded-lg text-center mt-2">
+                ✅ Message received! We will get back to you soon.
+                </div>
+            )}
+        </form>
     </div>
 
     {/* 3️⃣ Google Map */}
