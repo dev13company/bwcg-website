@@ -152,8 +152,21 @@ export default function Header() {
     <main className="flex flex-col items-center justify-center text-center">
         <header className="fixed top-0 left-0 right-0 w-full bg-white text-white z-50">
             <div className="bg-primary mx-auto flex items-center md:flex-row justify-center py-3">
-                <Link href="/" className="md:text-4xl font-inter tracking-wide hover:text-yellow-400 transition text-center">
-                    Berachah Ministries Gachibowli
+                <Link href="/" className="flex items-center space-x-3 hover:opacity-90 transition">
+                    {/* Logo Icon */}
+                    <Image
+                        src="/logo.png"
+                        alt="Berachah Ministries Logo"
+                        width={50}        // adjust icon size here
+                        height={50}
+                        className="object-contain"
+                        priority
+                    />
+
+                    {/* Text */}
+                    <span className="text-xl md:text-3xl font-inter tracking-wide text-white hover:text-yellow-400">
+                        Berachah Ministries Gachibowli
+                    </span>
                 </Link>
             </div>
             <div className="bg-primary mx-auto flex items-center md:flex-row justify-center py-3">

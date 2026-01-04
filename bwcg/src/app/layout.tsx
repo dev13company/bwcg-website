@@ -16,6 +16,11 @@ const inter = Inter({
 export const metadata = {
   title: "Berachah Ministries Gachibowli",
   description: "A Place of Blessing & Worship",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+    apple: "/icon.png",
+  },
 };
 
 interface RootLayoutProps {
