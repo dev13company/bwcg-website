@@ -439,51 +439,48 @@ export default function Header() {
             </div>
         </section>
         {/* CONTACT US SECTION */}
-<section
-  id="contact"
-  className="relative w-full bg-white py-16 px-6 text-[#0B4268]"
->
-  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
-    {/* 1️⃣ Contact Info */}
-    <div className="space-y-6 text-left">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#0B4268]">
-        Contact Us
-      </h2>
-      <p className="text-base leading-relaxed mb-4">
-        Reach out for prayer, ministry inquiries, or fellowship — we’d love to connect!
-      </p>
-      <div className="space-y-3">
-        <p className="flex items-start space-x-3">
-          <span className="text-yellow-500 text-xl mt-1">📍</span>
-          <span>
-            <strong>Berachah Ministries</strong><br/>
-            Dream Center, 3rd Floor,Preston Prime Mall <br/>
-            Gachibowli, Hyderabad, Telangana
-          </span>
-        </p>
-        <p className="flex items-center space-x-3">
-          <span className="text-yellow-500 text-xl">📞</span>
-          <a href="tel:+919876543210" className="hover:text-yellow-600">
-            +91 98765 43210
-          </a>
-        </p>
-        <p className="flex items-center space-x-3">
-          <span className="text-yellow-500 text-xl">✉️</span>
-          <a
-            href="mailto:info@berachahministries.in"
-            className="hover:text-yellow-600"
-          >
-            info@berachahministries.in
-          </a>
-        </p>
-      </div>
-      {/* Social Icons */}
-      <div className="flex space-x-5 mt-6">
-        <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">🌐</a>
-        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">📸</a>
-        <a href="https://www.youtube.com/@ShekenaGlory" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">▶️</a>
-      </div>
-    </div>
+        <section id="contact" className="relative w-full bg-white py-16 px-6 text-[#0B4268]">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
+                {/* 1️⃣ Contact Info */}
+                <div className="space-y-6 text-left">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#0B4268]">
+                    Contact Us
+                </h2>
+                <p className="text-base leading-relaxed mb-4">
+                    Reach out for prayer, ministry inquiries, or fellowship — we’d love to connect!
+                </p>
+                <div className="space-y-3">
+                    <p className="flex items-start space-x-3">
+                    <span className="text-yellow-500 text-xl mt-1">📍</span>
+                    <span>
+                        <strong>Berachah Ministries</strong><br/>
+                        Dream Center, 3rd Floor,Preston Prime Mall <br/>
+                        Gachibowli, Hyderabad, Telangana
+                    </span>
+                    </p>
+                    <p className="flex items-center space-x-3">
+                    <span className="text-yellow-500 text-xl">📞</span>
+                    <a href="tel:+919876543210" className="hover:text-yellow-600">
+                        +91 98765 43210
+                    </a>
+                    </p>
+                    <p className="flex items-center space-x-3">
+                    <span className="text-yellow-500 text-xl">✉️</span>
+                    <a
+                        href="mailto:info@berachahministries.in"
+                        className="hover:text-yellow-600"
+                    >
+                        info@berachahministries.in
+                    </a>
+                    </p>
+            </div>
+            {/* Social Icons */}
+            <div className="flex space-x-5 mt-6">
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">🌐</a>
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">📸</a>
+                <a href="https://www.youtube.com/@ShekenaGlory" target="_blank" rel="noreferrer" className="hover:text-yellow-500 text-2xl">▶️</a>
+            </div>
+        </div>
 
     {/* 2️⃣ Message Form */}
     <div className="bg-yellow-50 rounded-2xl shadow-md p-6">
@@ -557,7 +554,7 @@ export default function Header() {
     </div>
 
     {/* 3️⃣ Google Map */}
-    <div className="h-[350px] rounded-2xl overflow-hidden shadow-md">
+    <div className="h-[450px] rounded-2xl overflow-hidden shadow-md">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.535758177327!2d78.35082367511078!3d17.444948883461568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dd25c2dc75%3A0xf3e3a7c33dcb1622!2sPreston%20Prime%20Mall!5e0!3m2!1sen!2sin!4v1736238512345!5m2!1sen!2sin"
         width="100%"
