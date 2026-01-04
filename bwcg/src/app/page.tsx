@@ -456,7 +456,8 @@ export default function Header() {
         <p className="flex items-start space-x-3">
           <span className="text-yellow-500 text-xl mt-1">📍</span>
           <span>
-            <strong>Berachah Ministries</strong><br />
+            <strong>Berachah Ministries</strong><br/>
+            Dream Center, 3rd Floor,Preston Prime Mall <br/>
             Gachibowli, Hyderabad, Telangana
           </span>
         </p>
@@ -558,14 +559,14 @@ export default function Header() {
     {/* 3️⃣ Google Map */}
     <div className="h-[350px] rounded-2xl overflow-hidden shadow-md">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5132422948924!2d78.34859707494164!3d17.445715083460792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dc3916dd7f%3A0x5ad523db4d1c8712!2sGachibowli%2C%20Hyderabad%2C%20Telangana%20500032!5e0!3m2!1sen!2sin!4v1709392456723!5m2!1sen!2sin"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.535758177327!2d78.35082367511078!3d17.444948883461568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93dd25c2dc75%3A0xf3e3a7c33dcb1622!2sPreston%20Prime%20Mall!5e0!3m2!1sen!2sin!4v1736238512345!5m2!1sen!2sin"
         width="100%"
         height="100%"
         style={{ border: 0 }}
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-      ></iframe>
+        />
     </div>
 
     {/* 4️⃣ Donation QR */}
@@ -583,7 +584,7 @@ export default function Header() {
         />
       </div>
       <p className="text-sm text-gray-600 mb-3">
-        UPI ID: <strong>berachah@upi</strong>
+        UPI ID: <strong>calebchinna@ybl</strong>
       </p>
       <a
         href="upi://pay?pa=berachah@upi&pn=Berachah%20Ministries"
