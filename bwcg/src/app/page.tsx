@@ -295,7 +295,7 @@ export default function Header() {
                             rel="noopener noreferrer"
                             className="mt-auto inline-block bg-yellow-400 text-[#0B4268] font-semibold px-4 py-2 rounded-lg hover:bg-yellow-500 transition"
                             >
-                            Learn More
+                            Join Link
                             </a>
                         )}
                         </div>
