@@ -1,4 +1,5 @@
 import { Playfair_Display, Inter } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
 import type { ReactNode } from "react";
 import "./globals.css";
 
@@ -30,7 +31,10 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="font-sans bg-white text-[#0B4268]">{children}</body>
+      <body className="font-sans bg-white text-[#0B4268]">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
