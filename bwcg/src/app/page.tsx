@@ -75,24 +75,35 @@ export default function Header() {
             );
         }
 
-        // 5️⃣ Fetch gallery for current week with fallback
-        const galleryData: GalleryData =  await client.fetch(
-            `*[_type == "galleryImage" && weekOf == $mondayISO]{
-            images[]{ alt, asset}
-            }`,
-            { mondayISO }
+        // 5️⃣ Fetch gallery for current week
+        let galleryData: GalleryData = await client.fetch(
+        `*[_type == "galleryImage" && weekOf == $mondayISO][0]{
+            images[]{ alt, asset }
+        }`,
+        { mondayISO }
         );
 
+        // 6️⃣ If this week's gallery doesn't exist → fetch latest gallery
+        if (!galleryData || !galleryData.images || galleryData.images.length === 0) {
+        galleryData = await client.fetch(
+            `*[_type == "galleryImage"] | order(weekOf desc)[0]{
+            images[]{ alt, asset }
+            }`
+        );
+        }
+
+        // 7️⃣ Fallback images if Sanity has nothing
         const fallbackImages = [
-            { src: "/gallery1_1.jpg", alt: "Event 1" },
-            { src: "/gallery2_2.jpg", alt: "Event 2" },
-            { src: "/gallery3_3.jpg", alt: "Event 3" },
+        { src: "/gallery1_1.jpg", alt: "Event 1" },
+        { src: "/gallery2_2.jpg", alt: "Event 2" },
+        { src: "/gallery3_3.jpg", alt: "Event 3" },
         ];
 
+        // 8️⃣ Decide which images to show
         const imagesToShow =
-            galleryData && Array.isArray(galleryData.images) && galleryData.images.length > 0
-                ? galleryData.images
-                : fallbackImages;
+        galleryData?.images && galleryData.images.length > 0
+            ? galleryData.images
+            : fallbackImages;
 
 
         // 3️⃣ Fetch upcoming meetings
